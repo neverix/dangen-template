@@ -8,10 +8,22 @@ export var mouse_sensitivity = 4.0
 export var gravity = 400.0
 export var step_size = 1.05
 export var step_size_search_steps = 16
+export var max_run_time = 5
+export var run_cooldown = 5
+var run_time = 0
 var velocity = Vector3()
 onready var used_to_be_on_floor = is_on_floor()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if (is_running() and speed_pressed().length() > 0) or run_time > max_run_time:
+		run_time += delta
+	else:
+		run_time -= delta
+	if run_time > max_run_time + run_cooldown:
+		run_time = 0
+
+# Called every physics frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	# Get input
 	var speed = speed_pressed()
@@ -58,7 +70,7 @@ func speed_pressed():
 	# Rotate to our view direction
 	direction = transform.basis.xform(direction)
 	# Run or walk
-	if is_running():
+	if is_running() and run_time <= max_run_time:
 		direction = direction * running_speed
 	else:
 		direction = direction * walking_speed
