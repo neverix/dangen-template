@@ -2,31 +2,36 @@ extends KinematicBody
 
 
 onready var camera = $Camera
-export var walking_speed = 100
-export var running_speed = 200
-export var mouse_sensitivity = 4
+export var walking_speed = 100.0
+export var running_speed = 200.0
+export var mouse_sensitivity = 4.0
 export var gravity = 9.81
 var velocity = Vector3()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	velocity.y -= gravity * delta
+	# Fall down
+	if is_on_floor():
+		velocity.y = 0
+	else:
+		velocity.y -= gravity * delta
+
+	# Move player
 	var vel = speed_pressed() * delta
 	velocity.x = vel.x
 	velocity.z = vel.z
-	# Move player
 	move_and_slide(velocity, Vector3.UP, true)
 
 # Handle mouse inputs
 func _input(event):
-	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+	if event is InputEventMouseMotion:  # and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		# Look up if pixels moves down; look right if pixels move left.
 		var movement = -event.relative * mouse_sensitivity
 		# Normalize by screen size
-		movement *= mouse_sensitivity / get_viewport().size
+		movement /= get_viewport().size.x
 		# Rotate us and the camera
 		rotate_y(movement.x)
-		camera.rotate_x(movement.y)
+		camera.rotation_degrees.x = clamp(camera.rotation_degrees.x + movement.y * 90, -90, 90)
 
 # The speed keys are pointing in; view-dependent and incorporates walking/running.
 func speed_pressed():

@@ -5,7 +5,7 @@
 [sub_resource type="BoxShape" id=1]
 
 [sub_resource type="CapsuleShape" id=2]
-height = 1.5
+margin = 0.001
 
 [node name="Spatial" type="Spatial"]
 
@@ -28,8 +28,22 @@ shape = SubResource( 1 )
 [node name="CSGBox" type="CSGBox" parent="StaticBody2/CollisionShape"]
 use_collision = true
 
+[node name="StaticBody3" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.925104, -0.379715, 0, 0.379715, -0.925104, 0, -13.8907, -19.6935 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody3"]
+transform = Transform( 11.52, 0, 0, 0, 1, 0, 0, 0, 11.48, 0, -4.618, 0 )
+shape = SubResource( 1 )
+
+[node name="CSGBox" type="CSGBox" parent="StaticBody3/CollisionShape"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.590748, -0.021122 )
+use_collision = true
+
 [node name="KinematicBody" type="KinematicBody" parent="."]
 script = ExtResource( 1 )
+walking_speed = 200.0
+running_speed = 400.0
+gravity = 400.0
 
 [node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 3.19532, 0 )
