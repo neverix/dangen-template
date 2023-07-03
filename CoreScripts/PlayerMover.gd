@@ -43,7 +43,7 @@ func _physics_process(delta):
 
 # Handle mouse inputs
 func _input(event):
-	if event is InputEventMouseMotion:  # and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+	if event is InputEventMouseMotion:
 		# Look up if pixels moves down; look right if pixels move left.
 		var movement = -event.relative * mouse_sensitivity
 		# Normalize by screen size
