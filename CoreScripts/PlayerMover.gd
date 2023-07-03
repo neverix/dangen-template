@@ -2,15 +2,20 @@ extends KinematicBody
 
 
 onready var camera = $Camera
-export var walking_speed = 100.0
-export var running_speed = 200.0
+export var walking_speed = 6
+export var running_speed = 12
 export var mouse_sensitivity = 4.0
-export var gravity = 9.81
-export var step_size = 10
+export var gravity = 400.0
+export var step_size = 1.05
+export var step_size_search_steps = 16
 var velocity = Vector3()
+onready var used_to_be_on_floor = is_on_floor()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	# Get input
+	var speed = speed_pressed()
+	
 	# Fall down
 	if is_on_floor():
 		velocity.y = 0
@@ -18,17 +23,23 @@ func _physics_process(delta):
 		velocity.y -= gravity * delta
 
 	# Move player. Key-related velocity is not accumulated.
-	var vel = (velocity + speed_pressed()) * delta
-	if not test_move(transform, vel):
-		print("can")
-		move_and_slide(vel, Vector3.UP, true)
-	elif not test_move(transform.translated(Vector3.UP * step_size), vel):
-		print("can up")
-		translate(Vector3.UP * step_size)
-		vel.y = 0
-		move_and_slide(vel, Vector3.UP, true)
-	else:
-		print("Cant")
+	var vel = velocity + speed
+	var vel_effective = vel
+	var vel_moved = move_and_slide(vel_effective, Vector3.UP, true)
+	var movement_error = (vel_moved - vel_effective) * Vector3(1, 0, 1)
+	if movement_error.length() > 0:
+		for i in range(1, step_size_search_steps + 1):
+			var step_size_ = step_size * i / step_size_search_steps
+			var movement = -movement_error / movement_error.length() * step_size_ * 2
+			if not test_move(transform.translated(Vector3.UP * step_size_), movement):
+				move_and_collide(Vector3.UP * step_size_)
+				move_and_collide(movement)
+				break
+	
+	
+	if not is_on_floor() and used_to_be_on_floor:
+		move_and_slide(Vector3.DOWN * speed.length() * 2)
+	used_to_be_on_floor = is_on_floor()
 
 # Handle mouse inputs
 func _input(event):
