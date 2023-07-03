@@ -6,6 +6,7 @@ export var walking_speed = 100.0
 export var running_speed = 200.0
 export var mouse_sensitivity = 4.0
 export var gravity = 9.81
+export var step_size = 10
 var velocity = Vector3()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -16,11 +17,18 @@ func _physics_process(delta):
 	else:
 		velocity.y -= gravity * delta
 
-	# Move player
-	var vel = speed_pressed() * delta
-	velocity.x = vel.x
-	velocity.z = vel.z
-	move_and_slide(velocity, Vector3.UP, true)
+	# Move player. Key-related velocity is not accumulated.
+	var vel = (velocity + speed_pressed()) * delta
+	if not test_move(transform, vel):
+		print("can")
+		move_and_slide(vel, Vector3.UP, true)
+	elif not test_move(transform.translated(Vector3.UP * step_size), vel):
+		print("can up")
+		translate(Vector3.UP * step_size)
+		vel.y = 0
+		move_and_slide(vel, Vector3.UP, true)
+	else:
+		print("Cant")
 
 # Handle mouse inputs
 func _input(event):
@@ -51,7 +59,7 @@ func is_running():
 
 # Direction pressed keys are pointing in; view-independent.
 func direction_pressed():
-	var direction = Vector3.ZERO
+	var direction = Vector3.ZERO  # Vector3(0, -1, 0) if is_on_floor() else Vector3.ZERO
 	if Input.is_action_pressed("forward"):
 		direction += Vector3(0, 0, -1)
 	if Input.is_action_pressed("right"):
