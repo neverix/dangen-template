@@ -42,7 +42,7 @@ func _physics_process(delta):
 	if movement_error.length() > 0:
 		for i in range(1, step_size_search_steps + 1):
 			var step_size_ = step_size * i / step_size_search_steps
-			var movement = -movement_error / movement_error.length() * step_size_ * 2
+			var movement = -movement_error / movement_error.length() * step_size_
 			if not test_move(transform.translated(Vector3.UP * step_size_), movement):
 				move_and_collide(Vector3.UP * step_size_)
 				move_and_collide(movement)

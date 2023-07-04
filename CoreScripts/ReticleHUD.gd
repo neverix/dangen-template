@@ -31,7 +31,9 @@ func _process(delta):
 		animation.current_animation = "unfocused"
 
 func activate():
-	print(cast_ray())
+	var object = cast_ray()
+	if not object:
+		return
 	animation.current_animation = "activated"
 	state = 1
 

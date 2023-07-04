@@ -8,6 +8,9 @@
 [node name="Box" parent="." instance=ExtResource( 1 )]
 transform = Transform( 7.74, 0, 0, 0, 1, 0, 0, 0, 9.56, 0, 0, 0 )
 
+[node name="Box3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 7.74, 0, 0, 0, 1, 0, 0, 0, 9.56, 15.2175, 0.601029, -4.76837e-07 )
+
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.92788, 0 )
 
