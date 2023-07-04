@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Scenes/StartingMenu.gd" type="Script" id=1]
+[ext_resource path="res://CoreScripts/StartingMenu.gd" type="Script" id=1]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "menu"
 loop = true
 tracks/0/type = "bezier"
@@ -26,8 +26,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 )
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "press_key"
+[sub_resource type="Animation" id=2]
 length = 2.0
 loop = true
 step = 1.0
@@ -72,9 +71,9 @@ align = 1
 valign = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-playback_default_blend_time = 1.0
-anims/menu = SubResource( 2 )
-anims/press_key = SubResource( 1 )
+playback_default_blend_time = 0.5
+anims/menu = SubResource( 1 )
+anims/press_key = SubResource( 2 )
 
 [node name="title" type="Label" parent="."]
 margin_left = 434.291
@@ -85,22 +84,30 @@ text = "dungeon master"
 align = 1
 valign = 1
 
-[node name="Buttons" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="Quit" type="Button" parent="Buttons"]
-margin_left = 136.134
-margin_top = 391.697
-margin_right = 527.134
-margin_bottom = 515.697
-rect_pivot_offset = Vector2( 153.491, 50.1283 )
-text = "quit"
+[node name="Buttons" type="VBoxContainer" parent="."]
+margin_left = 62.6383
+margin_top = 301.499
+margin_right = 491.638
+margin_bottom = 542.499
 
 [node name="New game" type="Button" parent="Buttons"]
-margin_left = 131.123
-margin_top = 233.849
-margin_right = 522.123
-margin_bottom = 357.849
+margin_right = 429.0
+margin_bottom = 20.0
 rect_pivot_offset = Vector2( 153.491, 50.1283 )
 text = "new game"
+
+[node name="Load game" type="Button" parent="Buttons"]
+margin_top = 24.0
+margin_right = 429.0
+margin_bottom = 44.0
+rect_pivot_offset = Vector2( 153.491, 50.1283 )
+text = "load game"
+
+[node name="Quit" type="Button" parent="Buttons"]
+margin_top = 48.0
+margin_right = 429.0
+margin_bottom = 68.0
+rect_pivot_offset = Vector2( 153.491, 50.1283 )
+text = "quit"
+[connection signal="pressed" from="Buttons/New game" to="." method="open_game"]
+[connection signal="pressed" from="Buttons/Quit" to="." method="quit"]
