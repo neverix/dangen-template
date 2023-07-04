@@ -3,6 +3,11 @@ extends Control
 export var mouse_sensitivity = 2.0
 export var ray_max = 100
 onready var reticle = $Reticle
+onready var animation = $AnimationPlayer
+
+# 0: can be used to select things
+# 1: deactivated
+var state = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,17 +19,21 @@ func _input(event):
 		reticle.rect_position += movement
 		reticle.rect_position.x = max(0, min(rect_size.x, reticle.rect_position.x))
 		reticle.rect_position.y = max(0, min(rect_size.y, reticle.rect_position.y))
-	elif event is InputEventMouseButton and event.button_index == 1 and event.pressed:
+	if state == 0 and event is InputEventMouseButton and event.button_index == 1 and event.pressed:
 		activate()
 
 func _process(delta):
+	if state != 0:
+		return
 	if cast_ray():
-		pass
+		animation.current_animation = "focused"
 	else:
-		pass
+		animation.current_animation = "unfocused"
 
 func activate():
 	print(cast_ray())
+	animation.current_animation = "activated"
+	state = 1
 
 func cast_ray():
 	var coords = reticle.rect_global_position
