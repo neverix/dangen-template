@@ -34,8 +34,11 @@ func activate():
 	var object = cast_ray()
 	if not object:
 		return
+	if not object.collider.has_method("activate"):
+		return
 	animation.current_animation = "activated"
 	state = 1
+	object.collider.activate()
 
 func cast_ray():
 	var coords = reticle.rect_global_position
@@ -43,4 +46,4 @@ func cast_ray():
 	var source = camera.project_ray_origin(coords)
 	var direction = camera.project_ray_normal(coords)
 	var dss = get_parent().get_world().direct_space_state
-	return dss.intersect_ray(source, direction * ray_max)
+	return dss.intersect_ray(source, direction * ray_max, [], 2)
