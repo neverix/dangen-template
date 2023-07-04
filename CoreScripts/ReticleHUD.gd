@@ -1,7 +1,7 @@
 extends Control
 
 export var mouse_sensitivity = 2.0
-export var ray_max = 100
+export var ray_max = 200
 onready var reticle = $Reticle
 onready var animation = $AnimationPlayer
 
@@ -46,4 +46,5 @@ func cast_ray():
 	var source = camera.project_ray_origin(coords)
 	var direction = camera.project_ray_normal(coords)
 	var dss = get_parent().get_world().direct_space_state
-	return dss.intersect_ray(source, direction * ray_max, [], 2)
+	return dss.intersect_ray(camera.global_transform.origin,
+				direction.normalized() * ray_max, [], 2)
