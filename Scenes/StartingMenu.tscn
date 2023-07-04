@@ -1,0 +1,106 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/StartingMenu.gd" type="Script" id=1]
+
+[sub_resource type="Animation" id=2]
+resource_name = "menu"
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("press key:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Buttons:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "press_key"
+length = 2.0
+loop = true
+step = 1.0
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("press key:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 2 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Buttons:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+
+[node name="StartingMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 0.164856
+margin_top = 0.835175
+margin_right = 0.164795
+margin_bottom = 0.835205
+script = ExtResource( 1 )
+
+[node name="press key" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 540.358
+margin_top = 131.958
+margin_right = 857.358
+margin_bottom = 329.958
+text = "press any key to continue"
+align = 1
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_default_blend_time = 1.0
+anims/menu = SubResource( 2 )
+anims/press_key = SubResource( 1 )
+
+[node name="title" type="Label" parent="."]
+margin_left = 434.291
+margin_top = 10.0221
+margin_right = 842.291
+margin_bottom = 240.022
+text = "dungeon master"
+align = 1
+valign = 1
+
+[node name="Buttons" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Quit" type="Button" parent="Buttons"]
+margin_left = 136.134
+margin_top = 391.697
+margin_right = 527.134
+margin_bottom = 515.697
+rect_pivot_offset = Vector2( 153.491, 50.1283 )
+text = "quit"
+
+[node name="New game" type="Button" parent="Buttons"]
+margin_left = 131.123
+margin_top = 233.849
+margin_right = 522.123
+margin_bottom = 357.849
+rect_pivot_offset = Vector2( 153.491, 50.1283 )
+text = "new game"
