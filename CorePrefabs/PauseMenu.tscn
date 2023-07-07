@@ -29,5 +29,12 @@ margin_top = 24.0
 margin_right = 61.0
 margin_bottom = 44.0
 text = "resume"
+
+[node name="Save" type="Button" parent="PauseUI/VBoxContainer"]
+margin_top = 48.0
+margin_right = 61.0
+margin_bottom = 68.0
+text = "save"
 [connection signal="pressed" from="PauseUI/VBoxContainer/Quit" to="." method="quit"]
 [connection signal="pressed" from="PauseUI/VBoxContainer/Resume" to="." method="resume"]
+[connection signal="pressed" from="PauseUI/VBoxContainer/Save" to="." method="save"]

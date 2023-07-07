@@ -1,4 +1,4 @@
-extends StaticBody
+extends Node
 
 
 func activate():

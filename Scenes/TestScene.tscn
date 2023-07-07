@@ -1,9 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Dummies/Box.tscn" type="PackedScene" id=1]
 [ext_resource path="res://CorePrefabs/FPSPlayer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://CoreScripts/Receivers/ReceiverBroadcast.gd" type="Script" id=3]
 [ext_resource path="res://CorePrefabs/Receivers/Spinner.tscn" type="PackedScene" id=4]
+[ext_resource path="res://CoreScripts/AreaActivator.gd" type="Script" id=5]
+
+[sub_resource type="PhysicsMaterial" id=2]
+bounce = 0.5
+
+[sub_resource type="BoxShape" id=1]
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 3.37394, 4.68379, 2.54985 )
 
 [node name="Spatial" type="Spatial"]
 
@@ -17,6 +26,7 @@ transform = Transform( 7.74, 0, 0, 0, 1, 0, 0, 0, 9.56, 15.2175, 0.601029, -4.76
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.92788, 0 )
 
 [node name="Box2" parent="." instance=ExtResource( 1 )]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3047, 3.2979, 0 )
 collision_layer = 3
 script = ExtResource( 3 )
@@ -24,4 +34,37 @@ script = ExtResource( 3 )
 [node name="Spinner" parent="Box2" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3047, -3.2979, 0 )
 
+[node name="Box4" type="RigidBody" parent="."]
+editor/display_folded = true
+transform = Transform( 0.419063, -0.779093, -0.466262, 0, 0.513529, -0.858072, 0.907957, 0.359586, 0.215201, 6.1694, 5.83053, 0 )
+mass = 1.01
+physics_material_override = SubResource( 2 )
+linear_velocity = Vector3( 0, 1, 0 )
+angular_velocity = Vector3( 0, 1, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Box4"]
+shape = SubResource( 1 )
+
+[node name="CSGBox" type="CSGBox" parent="Box4/CollisionShape"]
+
+[node name="Zone plate" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.47292, 6.31519 )
+script = ExtResource( 3 )
+
+[node name="Box" parent="Zone plate" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.23788, 0 )
+collision_layer = 3
+script = ExtResource( 3 )
+
+[node name="Spinner" parent="Zone plate/Box" instance=ExtResource( 4 )]
+
+[node name="Area" type="Area" parent="Zone plate"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51339, 0.288805 )
+script = ExtResource( 5 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Zone plate/Area"]
+shape = SubResource( 3 )
+
 [editable path="Box2"]
+
+[editable path="Zone plate/Box"]
