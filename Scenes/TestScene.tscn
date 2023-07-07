@@ -7,10 +7,10 @@
 [ext_resource path="res://CoreScripts/AreaActivator.gd" type="Script" id=5]
 [ext_resource path="res://Dummies/Loser.tscn" type="PackedScene" id=6]
 
-[sub_resource type="PhysicsMaterial" id=2]
+[sub_resource type="PhysicsMaterial" id=1]
 bounce = 0.5
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="BoxShape" id=2]
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 3.37394, 4.68379, 2.54985 )
@@ -39,16 +39,17 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3047, -3.2979, 0 )
 editor/display_folded = true
 transform = Transform( 0.419063, -0.779093, -0.466262, 0, 0.513529, -0.858072, 0.907957, 0.359586, 0.215201, 6.1694, 5.83053, 0 )
 mass = 1.01
-physics_material_override = SubResource( 2 )
+physics_material_override = SubResource( 1 )
 linear_velocity = Vector3( 0, 1, 0 )
 angular_velocity = Vector3( 0, 1, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Box4"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="CSGBox" type="CSGBox" parent="Box4/CollisionShape"]
 
 [node name="Zone plate" type="Spatial" parent="."]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.47292, 6.31519 )
 script = ExtResource( 3 )
 
