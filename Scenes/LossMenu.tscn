@@ -77,22 +77,22 @@ margin_right = 373.606
 margin_bottom = 299.476
 
 [node name="Start Again" type="Button" parent="Buttons"]
-margin_right = 250.0
+margin_right = 249.0
 margin_bottom = 20.0
 text = "start again"
 
 [node name="Give Up" type="Button" parent="Buttons"]
 margin_top = 24.0
-margin_right = 250.0
+margin_right = 249.0
 margin_bottom = 44.0
 text = "give up"
 
-[node name="Label" type="Label" parent="."]
+[node name="don't read this" type="Label" parent="."]
 margin_left = 453.0
 margin_top = 38.0
 margin_right = 761.0
 margin_bottom = 119.0
-text = "you lost the game"
+text = "you lost The Game"
 align = 1
 valign = 1
 [connection signal="pressed" from="Buttons/Start Again" to="." method="open_game"]
