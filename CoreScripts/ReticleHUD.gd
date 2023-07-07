@@ -19,19 +19,19 @@ func _input(event):
 		reticle.rect_position += movement
 		reticle.rect_position.x = max(0, min(rect_size.x, reticle.rect_position.x))
 		reticle.rect_position.y = max(0, min(rect_size.y, reticle.rect_position.y))
-	if state == 0 and event is InputEventMouseButton and event.button_index == 1 and event.pressed:
-		activate()
 
 func _process(delta):
 	if state != 0:
 		return
-	if cast_ray():
+	var object = cast_ray()
+	if object:
 		animation.current_animation = "focused"
 	else:
 		animation.current_animation = "unfocused"
+	if Input.is_action_just_released("activate"):
+		activate(object)
 
-func activate():
-	var object = cast_ray()
+func activate(object):
 	if not object:
 		return
 	if not object.collider.has_method("activate"):

@@ -20,6 +20,3 @@ func _process(delta):
 # TODO: add save file parameter
 func open_game():
 	get_tree().change_scene("res://Scenes/TestScene.tscn")
-
-func quit():
-	get_tree().quit()
