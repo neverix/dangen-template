@@ -6,3 +6,7 @@ func quit():
 
 func save():
 	print(get("Script Variables"))
+
+# TODO: add save file parameter
+func open_game():
+	get_tree().change_scene("res://Scenes/TestScene.tscn")

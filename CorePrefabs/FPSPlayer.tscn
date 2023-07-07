@@ -9,6 +9,7 @@ margin = 0.001
 
 [node name="Player" type="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.88259, 0 )
+collision_layer = 5
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

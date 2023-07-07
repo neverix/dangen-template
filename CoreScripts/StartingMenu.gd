@@ -1,4 +1,4 @@
-extends Control
+extends "res://CoreScripts/BaseMenu.gd"
 
 onready var animation = $AnimationPlayer
 # 0: waiting for key press
@@ -16,7 +16,3 @@ func _process(delta):
 				state = 1
 				animation.current_animation = "menu"
 				return
-
-# TODO: add save file parameter
-func open_game():
-	get_tree().change_scene("res://Scenes/TestScene.tscn")
